@@ -113,3 +113,88 @@ class CourseClass
 //        'posts' => $author->posts,
 //    ]);
 //});
+
+/**
+ * Copy from vendor to resources
+ *   php artisan vendor:publish
+ *   and select package.
+ */
+
+/**
+ * Local data
+ */
+// Post::factory(10)->create(['category_id' => 2])
+
+/**
+ * Check the password
+ */
+//php artisan tinker
+//
+//$user = User::find(ID);
+//Illuminate\Support\Facades\Hash::check('password', $user->password);
+//-> TRUE/FALSE
+
+
+/**
+ * Create USER
+ */
+//$attributes = request()->validate([
+//    'name' => 'required|max:255',
+//    'username' => 'required|max:255|min:3',
+//    'email' => 'required|email|max:255',
+//    'password' => ['required', 'min:7', 'max:255']
+//]);
+//$attributes['password'] = bcrypt($attributes['password']);
+//User::create($attributes);
+
+/**
+ * Modify attributes in the Model
+ */
+//setKeyAttribute -> default method
+//    public function setPasswordAttribute($password)
+//{
+//    $this->attributes['password'] = bcrypt($password);
+//
+//}
+// EXAMPLE
+//
+//public function setUsernameAttribute($username)
+//{
+//    $this->attributes['username'] = ucwords($username);
+//}
+
+/**
+ * Validation exmaple
+ */
+//'username' => 'required|max:255|min:3|unique:users,username',
+//'username' => ['required', max:255', min:3', Rule::unique('users', 'nickname')],
+
+/**
+ * Flash messages
+ */
+//session()->flash('success', 'Your account has been created.');
+//or use ->with()
+
+/**
+ * Check if user logged in
+ */
+//  @guest
+// if(auth()->check())
+// @unlesss(auth->check())
+
+/**
+ * Errors
+ */
+//throw ValidationException::withMessages([
+//    'email' => 'Your provided credentials could not be verified.'
+//]);
+// Other way aroun.
+//        return back()
+//            ->withInput()
+//            ->withErrors(['email' => 'Your provided credentials could not be verified.']);
+
+
+//ForeignId example with connection (comments,posts)
+//$table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+//            $table->unsignedBigInteger('post_id');
+//            $table->foreign('post_id')->references('id')->on('posts')->cascadeOnDelete();
