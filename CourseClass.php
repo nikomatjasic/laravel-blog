@@ -198,3 +198,8 @@ class CourseClass
 //$table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
 //            $table->unsignedBigInteger('post_id');
 //            $table->foreign('post_id')->references('id')->on('posts')->cascadeOnDelete();
+
+/**
+ * 7 usefull controlle functions, ""GENERAL RULE""
+ */
+// index (show), show (show1), store, edit, update, destroy
