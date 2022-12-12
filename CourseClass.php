@@ -203,3 +203,15 @@ class CourseClass
  * 7 usefull controlle functions, ""GENERAL RULE""
  */
 // index (show), show (show1), store, edit, update, destroy
+
+/**
+ * Slug example - 1.create 2.update
+ */
+// 'slug' => ['required', Rule::unique('posts', 'slug')
+// 'slug' => ['required', Rule::unique('posts', 'slug')->ignore($post->id)
+
+/**
+ * Authorize -> gate
+ */
+//auth()->user()->can('admin')
+// $this->authorize('admin') -> created under AppService provider

@@ -32,14 +32,35 @@
                         </button>
                     </x-slot>
 
-                    <x-dropdown-item href="/admin/posts/create">
-                        New post
+                    @if(auth()->user()->can('admin'))
+                        @can('admin')
+                            <x-dropdown-item
+                                href="/admin/posts"
+                                :active="request()->is('/admin/posts')"
+                            >
+                                All posts
+                            </x-dropdown-item>
+
+                            <x-dropdown-item
+                                href="/admin/posts/create"
+                                :active="request()->is('/admin/posts/create')"
+                            >
+                                New post
+                            </x-dropdown-item>
+                        @endif
+                    @endcan
+                    <x-dropdown-item href="#"
+                                     x-data="{}"
+                                     @click.prevent="document.querySelector('#logout-form').submit()"
+                    >
+                        Logout
                     </x-dropdown-item>
+                    <form method="POST" action="/logout" id="logout-form" class="hidden">
+                        @csrf
+                        <button type="submit">Logout</button>
+                    </form>
                 </x-dropdown>
-                <form method="POST" action="/logout" class="text-xs font-semibold text-blue-500 ml-6">
-                    @csrf
-                    <button type="submit">Logout</button>
-                </form>
+
             @endguest
 
             <a href="#newsletter"
