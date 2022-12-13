@@ -44,11 +44,15 @@
                                     </td>
                                 </tr>
                             @endforeach
+
                             </tbody>
                         </table>
                     </div>
+
                 </div>
             </div>
+            {{ $posts->links() }}
+
         </div>
     </x-setting>
 </x-layout>

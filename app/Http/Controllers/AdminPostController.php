@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class AdminPostController extends Controller
 {
     public function index()
     {
-
         return view('admin.posts.index', [
             'posts' => Post::paginate(10)
         ]);
@@ -25,6 +25,9 @@ class AdminPostController extends Controller
     {
         $attributes = array_merge($this->validatePost(), [
             'user_id' => request()->user()->id,
+            'slug' => Str::slug(request('title')),
+            'is_published' => request('published') == 'on',
+            'thumbnail' => request()->file('thumbnail')->store('thumbnails')
         ]);
         Post::create($attributes);
 
@@ -42,6 +45,7 @@ class AdminPostController extends Controller
         if ($attributes['thumbnail'] ?? false) {
             $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
         }
+        $attributes['is_published'] = request('published') == 'on';
         $post->update($attributes);
 
         return back()->with('success', 'Updates confirmed.');

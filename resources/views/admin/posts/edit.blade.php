@@ -18,6 +18,14 @@
                 {{ old('excerpt', $post->excerpt) }}
             </x-form.textarea>
             <x-form.field>
+                <x-form.label name="Published"></x-form.label>
+                <x-form.description>
+                    Check to publish
+                </x-form.description>
+                <input type="checkbox" value="1" name="is_published" {{ $post->is_published ? 'checked' : null }} />
+                <x-form.error name="is_published"></x-form.error>
+            </x-form.field>
+            <x-form.field>
                 <x-form.label name="category"></x-form.label>
                 <select name="category_id" id="category_id">
                     @php

@@ -1,11 +1,16 @@
-@props(['name', 'type' => 'text'])
+@props(['name', 'type' => 'text', 'description' => ''])
 <x-form.field>
     <x-form.label name="{{ $name }}"></x-form.label>
-    <input class="border border-gray-400 p-2 w-full"
-           type="{{ $type }}"
-           name="{{ $name }}"
-           id="{{ $name }}"
-           {{ $attributes(['value' => old($name)]) }}
-    >
+    <div class="flex">
+        <x-form.description>
+            {{ $description }}
+        </x-form.description>
+        <input {{ $attributes->merge(['class' => 'border border-gray-400 p-2']) }}
+               type="{{ $type }}"
+               name="{{ $name }}"
+               id="{{ $name }}"
+            {{ $attributes(['value' => old($name)]) }}
+        >
+    </div>
     <x-form.error name="{{ $name }}"></x-form.error>
 </x-form.field>
