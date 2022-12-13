@@ -31,10 +31,16 @@
                                         <a href="/posts/{{ $post->slug }}"> {{ $post->title }} </a>
                                     </td>
                                     <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-                                        <a href="/admin/posts/{{ $post->id }}/edit"
-                                           class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                        @if($post->is_published)
+                                            <span class="bg-green-400 p-2 rounded-2xl text-white">Active</span>
+                                        @else
+                                            <span class="bg-yellow-400 p-2 rounded-2xl text-white">Draft</span>
+
+                                        @endif
                                     </td>
                                     <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+                                        <a href="/admin/posts/{{ $post->id }}/edit"
+                                           class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                         <form method="POST" action="/admin/posts/{{ $post->id }}">
                                             @csrf
                                             @method('DELETE')

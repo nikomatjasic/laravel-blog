@@ -11,7 +11,7 @@ class AdminPostController extends Controller
     public function index()
     {
         return view('admin.posts.index', [
-            'posts' => Post::paginate(10)
+            'posts' => Post::latest()->paginate(10)
         ]);
     }
 
@@ -45,7 +45,7 @@ class AdminPostController extends Controller
         if ($attributes['thumbnail'] ?? false) {
             $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
         }
-        $attributes['is_published'] = request('published') == 'on';
+        $attributes['is_published'] = request('is_published') == 'on';
         $post->update($attributes);
 
         return back()->with('success', 'Updates confirmed.');

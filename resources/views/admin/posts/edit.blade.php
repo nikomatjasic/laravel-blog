@@ -22,7 +22,7 @@
                 <x-form.description>
                     Check to publish
                 </x-form.description>
-                <input type="checkbox" value="1" name="is_published" {{ $post->is_published ? 'checked' : null }} />
+                <input type="checkbox" name="is_published" {{ $post->is_published ? 'checked' : null }} />
                 <x-form.error name="is_published"></x-form.error>
             </x-form.field>
             <x-form.field>
@@ -42,7 +42,12 @@
                 </select>
                 <x-form.error name="category"></x-form.error>
             </x-form.field>
-            <x-form.button>Update</x-form.button>
+            <div class="flex">
+                <x-form.button>Update</x-form.button>
+                    <a class="ml-4 pt-10" href="/admin/posts">Back to posts</a>
+
+            </div>
+
         </form>
     </x-setting>
 </x-layout>
