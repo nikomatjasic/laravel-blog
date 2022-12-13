@@ -27,7 +27,7 @@
             </x-form.field>
             <x-form.field>
                 <x-form.label name="category"></x-form.label>
-                <select name="category_id" id="category_id">
+                <select name="category_id" id="category_id" class="p-1 rounded">
                     @php
                         $categories = \App\Models\Category::all();
                     @endphp
@@ -42,9 +42,26 @@
                 </select>
                 <x-form.error name="category"></x-form.error>
             </x-form.field>
+            <x-form.field>
+                <x-form.label name="author"></x-form.label>
+                <select name="user_id" id="user_id" class="p-1 rounded">
+                    @php
+                        $authors = \App\Models\User::all();
+                    @endphp
+                    @foreach($authors as $author)
+                        <option
+                            value="{{ $author->id }}"
+                            {{ old('user_id', $post->author->id) === $author->id ? 'selected' : '' }}
+                        >
+                            {{ $author->username }}
+                        </option>
+                    @endforeach
+                </select>
+                <x-form.error name="user"></x-form.error>
+            </x-form.field>
             <div class="flex">
                 <x-form.button>Update</x-form.button>
-                    <a class="ml-4 pt-10" href="/admin/posts">Back to posts</a>
+                <a class="ml-4 pt-10" href="/admin/posts">Back to posts</a>
 
             </div>
 

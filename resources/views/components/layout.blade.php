@@ -28,7 +28,7 @@
             @auth
                 <x-dropdown>
                     <x-slot name="trigger">
-                        <button href="" class="text-xs font-bold uppercase">Welcome back, {{ auth()->user()->name }}.
+                        <button class="text-xs font-bold uppercase">Welcome back, {{ auth()->user()->name }}.
                         </button>
                     </x-slot>
 
@@ -69,7 +69,6 @@
             </a>
         </div>
     </nav>
-
     {{ $slot  }}
     <footer id="newsletter"
             class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-10 mt-16">
