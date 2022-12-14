@@ -5,10 +5,6 @@
                 <div class="col-span-4 lg:text-center lg:pt-14 mb-10">
                     <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="" class="rounded-xl">
 
-                    <p class="mt-4 block text-gray-400 text-xs">
-                        Published
-                        <time>{{ $post->created_at->diffForHumans() }}</time>
-                    </p>
 
                     <div class="flex items-center lg:justify-center text-sm mt-4">
                         <img src="/images/lary-avatar.svg" alt="Lary avatar">
@@ -19,6 +15,15 @@
                                 </a>
                             </h5>
                         </div>
+                    </div>
+                    <div class="flex items-center">
+                        <p class="mt-4 block text-gray-400 text-xs">
+                            Published
+                            <time>{{ $post->created_at->diffForHumans() }}</time>
+                        </p>
+                        <p class="mt-4 block bg-blue-400 text-white text-xs rounded-3xl w-1.5 w-1/4 p-2 ml-4">
+                            Views {{ ($post->views_count === 0) ? '1' : $post->views_count }}
+                        </p>
                     </div>
                 </div>
 

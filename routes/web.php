@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('posts/{post:slug}', [PostController::class, 'show'])->name('category');
-Route::post('posts/{post}/comments', [PostCommentsController::class, 'store']);
+Route::post('posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 Route::get('feed', FeedController::class);
 
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest');

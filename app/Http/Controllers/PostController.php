@@ -16,8 +16,20 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
+        $this->increaseViews($post);
+
         return view('posts.show', [
             'post' => $post
         ]);
     }
+
+    protected function increaseViews(Post $post)
+    {
+        if (!session()->has('views.post')) {
+            session()->put('views.post', 1);
+            $post->increment('views_count');
+            $post->save();
+        }
+    }
+
 }
