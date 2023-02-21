@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Newsletter;
+use App\Http\Requests\NewsletterRequest;
+use App\Jobs\NewsletterSubscribeJob;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
-
 class NewsletterController extends Controller
 {
-    public function __invoke(Newsletter $newsletter)
+    public function __invoke(NewsletterRequest $request)
     {
-        request()->validate(['email' => 'required|email']);
-
+        $attributes = $request->validated();
         try {
-            $newsletter->subscribe(request('email'));
+            NewsletterSubscribeJob::dispatch($attributes);
         } catch (\Exception $e) {
+            Log::error($e);
             throw ValidationException::withMessages([
                 'email' => 'This email could not be added to our newsletter list.'
             ]);
         }
+
         return redirect('/')->with('success', 'You are now signed up for newsletter.');
     }
 }

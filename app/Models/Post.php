@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\PostObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,13 +10,14 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'excerpt', 'body', 'category_id', 'slug'];
-
+//    protected $fillable = ['title', 'excerpt', 'body', 'category_id'];
     protected $with = ['category', 'author'];
 
-//    protected $guarded = ['id'];
     protected $casts = [
         'is_published' => 'boolean',
+    ];
+    protected $observers = [
+        Post::class => [PostObserver::class]
     ];
 
     public function scopeFilter($query, array $filters)

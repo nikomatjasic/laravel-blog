@@ -18,8 +18,7 @@
                 class="w-full text-sm focus:outline-none focus:ring border border-gray-200 p-2 mt-4"
                 rows="10"
                 placeholder="Add you comment here"
-            >
-                {{ old('body') }}
+            >{{ old('body') }}
             </textarea>
                 @error('body')
                 <p class="text-red-500 text-xs mt-1">

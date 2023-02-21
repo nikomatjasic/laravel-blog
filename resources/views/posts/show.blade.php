@@ -4,9 +4,7 @@
             <article class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10">
                 <div class="col-span-4 lg:text-center lg:pt-14 mb-10">
                     <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="" class="rounded-xl">
-
-
-                    <div class="flex items-center lg:justify-center text-sm mt-4">
+                    <div class="flex flex-col items-center lg:justify-center text-sm mt-4">
                         <img src="/images/lary-avatar.svg" alt="Lary avatar">
                         <div class="ml-3 text-left">
                             <h5 class="font-bold">
@@ -15,6 +13,17 @@
                                 </a>
                             </h5>
                         </div>
+                        @if(!$following)
+                            <div class="mt-3">
+                                <button id="followUser" class="text-blue-400 font-bold">Follow author</button>
+                            </div>
+                        @else
+                            <div class="mt-3">
+                                <button id="unfollowUser" class="text-blue-400 font-bold">Unfollow author</button>
+                            </div>
+                        @endif
+
+
                     </div>
                     <div class="flex items-center">
                         <p class="mt-4 block text-gray-400 text-xs">
@@ -73,5 +82,55 @@
             </article>
         </main>
     </section>
-
+    @foreach($errors->all() as $error)
+        <li class="text-red-400 text-xs"> {{ $error  }} </li>
+    @endforeach
 </x-layout>
+<x-script>
+    <script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $('#followUser').click(function (e) {
+            $.ajax({
+                type: 'POST',
+                url: '/follow-author',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    author_id: "{{ $post->author->id }}",
+                    user_id: "{{ auth()->id() }}"
+                },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (error) {
+                    for (error in data.responseJSON) {
+                        errors += data.responseJSON[datos] + '\n';
+                    }
+                }
+            })
+        })
+        $('#unfollowUser').click(function (e) {
+            $.ajax({
+                type: 'POST',
+                url: '/unfollow-author',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    author_id: "{{ $post->author->id }}",
+                    user_id: "{{ auth()->id() }}"
+                },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (error) {
+                    for(error in data.responseJSON){
+                        errors += data.responseJSON[datos] + '\n';
+                    }
+                }
+            })
+        })
+    </script>
+</x-script>

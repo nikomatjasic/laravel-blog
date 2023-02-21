@@ -35,6 +35,9 @@ return [
         'lists' => [
             'subscribers' => env('MAILCHIMP_SUBSCRIBERS')
         ]
+    ],
+    'vonage' => [
+        'key' => env('VONAGE_KEY'),
+        'secret' => env('VONAGE_SECRET')
     ]
-
 ];

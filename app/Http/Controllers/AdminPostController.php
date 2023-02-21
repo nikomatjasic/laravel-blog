@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -10,6 +11,7 @@ class AdminPostController extends Controller
 {
     public function index()
     {
+        app('debugbar')->error('Watch out..');
         return view('admin.posts.index', [
             'posts' => Post::latest()->paginate(10)
         ]);
@@ -66,7 +68,6 @@ class AdminPostController extends Controller
             'excerpt' => 'required',
             'body' => 'required',
             'category_id' => ['required', Rule::exists('categories', 'id')],
-            'user_id' => ['required', Rule::exists('users', 'id')]
         ]);
     }
 }

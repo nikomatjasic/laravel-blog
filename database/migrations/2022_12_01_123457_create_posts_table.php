@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->text('body');
             $table->timestamps();
             $table->bigInteger('views_count')->unsigned()->default(0)->index();
-            $table->boolean('is_published')->default(false);
+            $table->boolean('is_published')->default(true);
             $table->timestamp('published_at')->nullable();
         });
     }

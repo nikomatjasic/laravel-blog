@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Observers\RegisterObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -17,12 +18,12 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'username',
-        'email',
-        'password',
-    ];
+//    protected $fillable = [
+//        'name',
+//        'username',
+//        'email',
+//        'password',
+//    ];p
 
     /**
      * The attributes that should be hidden for serialization.
@@ -43,6 +44,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * The model observers for your application.
+     *
+     * @var array
+     */
+    protected $observers = [
+        User::class => [RegisterObserver::class]
+    ];
+
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
@@ -51,6 +61,16 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follower_users', 'follower_id', 'user_id');
+    }
+
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follower_users', 'user_id', 'follower_id');
     }
 
 //    public function getRouteKeyName()

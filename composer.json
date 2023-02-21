@@ -12,9 +12,11 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "mailchimp/marketing": "^3.0",
-        "spatie/yaml-front-matter": "^2.0"
+        "spatie/yaml-front-matter": "^2.0",
+        "vonage/client": "^4.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.7",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",

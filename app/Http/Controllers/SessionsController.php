@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSessionsRequest;
 use Illuminate\Validation\ValidationException;
 
 class SessionsController extends Controller
@@ -12,19 +13,13 @@ class SessionsController extends Controller
         return redirect('/')->with('success', 'Come back soon!');
     }
 
-    /**
-     * Authenticate the user.
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function store()
+    public function store(StoreSessionsRequest $request)
     {
-        $attributes = request()->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
-        if (! auth()->attempt($attributes)) {
+        $attributes = $request->validated();
+        if (!auth()->attempt($attributes)) {
             throw ValidationException::withMessages([
-                'email' => 'Your provided credentials could not be verified.'
+                'email' => 'Your provided credentials could not be verified.',
+                'password' => 'Password incorrect.'
             ]);
         }
         session()->regenerate();

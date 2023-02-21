@@ -117,7 +117,7 @@ class CourseClass
 /**
  * Copy from vendor to resources
  *   php artisan vendor:publish
- *   and select package.
+ *   In the list select package.
  */
 
 /**
@@ -215,3 +215,8 @@ class CourseClass
  */
 //auth()->user()->can('admin')
 // $this->authorize('admin') -> created under AppService provider
+
+
+// TODO
+//1. Export Controller validations to custom requests.
+//2. Clear controllers with observers example -> After creating user, log user in in observer and logout after destroy

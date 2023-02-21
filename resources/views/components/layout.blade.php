@@ -2,8 +2,9 @@
 
 <title>Laravel From Scratch Blog</title>
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;700&display=swap" rel="stylesheet">
 <script defer src="https://unpkg.com/alpinejs@3.10.5/dist/cdn.min.js"></script>
 <style>
     html {
@@ -11,12 +12,12 @@
     }
 </style>
 
-<body style="font-family: Open Sans, sans-serif">
+<body style="font-family: 'Poppins', sans-serif">
 <section class="px-6 py-8">
     <nav class="md:flex md:justify-between md:items-center">
         <div>
             <a href="/">
-                <img src="/images/logo.svg" alt="Laracasts Logo" width="165" height="16">
+               <div class="text-3xl">AgileBlog</div>
             </a>
         </div>
 
@@ -106,4 +107,5 @@
     </footer>
 </section>
 <x-flash></x-flash>
+<x-script></x-script>
 </body>
