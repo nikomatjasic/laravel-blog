@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Listeners\WelcomeEmailListener;
 use App\Models\Post;
 use App\Models\User;
+use App\Notifications\SuccessEmailNotification;
 use App\Observers\PostObserver;
 use App\Observers\RegisterObserver;
 use Illuminate\Auth\Events\Registered;
@@ -22,7 +23,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
-            WelcomeEmailListener::class,
+            WelcomeEmailListener::class
         ],
     ];
 

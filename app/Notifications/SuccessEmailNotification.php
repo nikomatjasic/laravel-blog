@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class WelcomeEmailNotification extends Notification
+class SuccessEmailNotification extends Notification
 {
     use Queueable;
 
@@ -16,8 +16,9 @@ class WelcomeEmailNotification extends Notification
      *
      * @return void
      */
-    public function __construct(public $user)
+    public function __construct()
     {
+        //
     }
 
     /**
@@ -39,11 +40,9 @@ class WelcomeEmailNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        $hash = $this->user[0]->hash ?? $this->user->hash;
         return (new MailMessage)
             ->subject('Agiledrop onboarding')
-            ->line('Welcome to our local env project.')
-            ->action('Activate you account, click here', url('activate', [$hash]))
+            ->line('Account generated successfully.')
             ->line('Thank you for using our application!');
     }
 

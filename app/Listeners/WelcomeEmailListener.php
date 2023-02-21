@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\Notifications\WelcomeEmailNotification;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class WelcomeEmailListener
 {
