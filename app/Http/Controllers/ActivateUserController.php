@@ -28,26 +28,22 @@ class ActivateUserController extends Controller
         );
         $user = User::where('hash', $hash)->firstOrFail();
         $user->update($attributes);
-//        $user->fill($request->validated(), [
-////            'password' => bcrypt(request('password')),
-//            'hash' => Carbon::now()
-//        ])->save();
         auth()->login($user);
 
-        $basic  = new \Vonage\Client\Credentials\Basic(config('services.vonage.key'), config('services.vonage.secret'));
-        $client = new \Vonage\Client($basic);
-
-        $response = $client->sms()->send(
-            new \Vonage\SMS\Message\SMS("38651345855", 'AgileBlog', 'Welcome to the portal. Regards, AgileBlog.com')
-        );
-
-        $message = $response->current();
-
-        if ($message->getStatus() == 0) {
-            echo "The message was sent successfully\n";
-        } else {
-            echo "The message failed with status: " . $message->getStatus() . "\n";
-        }
+//        $basic  = new \Vonage\Client\Credentials\Basic(config('services.vonage.key'), config('services.vonage.secret'));
+//        $client = new \Vonage\Client($basic);
+//
+//        $response = $client->sms()->send(
+//            new \Vonage\SMS\Message\SMS("38651345855", 'AgileBlog', 'Welcome to the portal. Regards, AgileBlog.com')
+//        );
+//
+//        $message = $response->current();
+//
+//        if ($message->getStatus() == 0) {
+//            echo "The message was sent successfully\n";
+//        } else {
+//            echo "The message failed with status: " . $message->getStatus() . "\n";
+//        }
 
         return redirect('/')->with('success', 'Welcome back');
     }
