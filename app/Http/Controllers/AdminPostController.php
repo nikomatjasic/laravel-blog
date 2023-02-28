@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\FollowingUserCreatedNewPost;
 use App\Models\Post;
-use Barryvdh\Debugbar\Facades\Debugbar;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -23,6 +24,7 @@ class AdminPostController extends Controller
         return view('admin.posts.create');
     }
 
+
     public function store()
     {
         $attributes = array_merge($this->validatePost(), [
@@ -31,7 +33,10 @@ class AdminPostController extends Controller
             'is_published' => request('published') == 'on',
             'thumbnail' => request()->file('thumbnail')->store('thumbnails')
         ]);
-        Post::create($attributes);
+
+        $post = Post::create($attributes);
+
+        FollowingUserCreatedNewPost::dispatch(Auth::user(), $post);
 
         return redirect('/');
     }

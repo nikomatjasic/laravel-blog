@@ -38,7 +38,8 @@ class ActivateUserController extends Controller
         $client = new \Vonage\Client($basic);
 
         $response = $client->sms()->send(
-            new \Vonage\SMS\Message\SMS("38651345855", 'AgileBlog', 'Welcome to the portal. Regards, AgileBlog.com')
+          // @todo: temp
+          //  new \Vonage\SMS\Message\SMS("38651345855", 'AgileBlog', 'Welcome to the portal. Regards, AgileBlog.com')
         );
 
         $message = $response->current();

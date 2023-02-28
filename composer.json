@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "mailchimp/marketing": "^3.0",
+        "pusher/pusher-php-server": "^7.2",
         "spatie/yaml-front-matter": "^2.0",
         "vonage/client": "^4.0"
     },

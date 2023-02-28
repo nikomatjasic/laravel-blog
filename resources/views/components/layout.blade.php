@@ -1,23 +1,35 @@
 <!doctype html>
+<head>
+    <title>Laravel From Scratch Blog</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;700&display=swap" rel="stylesheet">
+    <script defer src="https://unpkg.com/alpinejs@3.10.5/dist/cdn.min.js"></script>
 
-<title>Laravel From Scratch Blog</title>
-<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;700&display=swap" rel="stylesheet">
-<script defer src="https://unpkg.com/alpinejs@3.10.5/dist/cdn.min.js"></script>
-<style>
-    html {
-        scroll-behavior: smooth;
-    }
-</style>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 
+    @php
+      use Illuminate\Support\Js;
+    @endphp
+    <script>
+        window.Laravel = window.Laravel || {};
+        window.Laravel.userFollowers = {{ Js::from($userFollowers ?? []) }};
+        window.Laravel.userFollowing = {{ Js::from($userFollowing ?? []) }};
+    </script>
+
+    @vite(['resources/js/app.js', 'resources/scss/app.scss'])
+</head>
 <body style="font-family: 'Poppins', sans-serif">
 <section class="px-6 py-8">
     <nav class="md:flex md:justify-between md:items-center">
         <div>
             <a href="/">
-               <div class="text-3xl">AgileBlog</div>
+               <div class="text-2xl">Agile<strong>Blog</strong></div>
             </a>
         </div>
 
@@ -106,6 +118,12 @@
         </div>
     </footer>
 </section>
+
+@auth
+    <div id="notifications_container">
+        <x-notification-box />
+    </div>
+@endauth
 <x-flash></x-flash>
 <x-script></x-script>
 </body>
