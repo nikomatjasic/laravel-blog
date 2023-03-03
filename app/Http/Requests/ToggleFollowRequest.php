@@ -2,9 +2,15 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class FollowRequest extends FormRequest
+/**
+ * Checks that request contains valid data and
+ * that user is authenticated.
+ */
+class ToggleFollowRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +30,8 @@ class FollowRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
-            'author_id' => 'required'
+          'user_id' => ['required', Rule::exists(User::class, 'id')],
+          'author_id' => ['required', Rule::exists(User::class, 'id')],
         ];
     }
 }

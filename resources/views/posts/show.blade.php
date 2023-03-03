@@ -6,32 +6,31 @@
                     <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="" class="rounded-xl">
                     <div class="flex flex-col items-center lg:justify-center text-sm mt-4">
                         <img src="/images/lary-avatar.svg" alt="Lary avatar">
-                        <div class="ml-3 text-left">
+
+                        <div class="mt-4">
                             <h5 class="font-bold">
                                 <a href="/?author={{ $post->author->username }}">
                                     {{ $post->author->name }}
                                 </a>
                             </h5>
                         </div>
-                        @if(!$following)
-                            <div class="mt-3">
-                                <button id="followUser" class="text-blue-400 font-bold">Follow author</button>
-                            </div>
-                        @else
-                            <div class="mt-3">
-                                <button id="unfollowUser" class="text-blue-400 font-bold">Unfollow author</button>
-                            </div>
+
+                        @if ($post->author->id !== Auth::user()->id)
+                        <div class="mt-3">
+                            <button class="text-blue-400 font-bold" data-action="{{ $followingAction }}">
+                                <span class="capitalize" data-action-title>{{ $followingAction }}</span>
+                            </button>
+                        </div>
                         @endif
 
-
                     </div>
-                    <div class="flex items-center">
-                        <p class="mt-4 block text-gray-400 text-xs">
+                    <div class="flex flex-col items-center mt-2 space-y-2">
+                        <p class="block text-gray-400 text-xs">
                             Published
                             <time>{{ $post->created_at->diffForHumans() }}</time>
                         </p>
-                        <p class="mt-4 block bg-blue-400 text-white text-xs rounded-3xl w-1.5 w-1/4 p-2 ml-4">
-                            Views {{ ($post->views_count === 0) ? '1' : $post->views_count }}
+                        <p class="flex bg-blue-400 text-white text-xs rounded-3xl w-1.5 w-1/4 py-1 px-2 ml-4">
+                            Views: {{ ($post->views_count === 0) ? '1' : $post->views_count }}
                         </p>
                     </div>
                 </div>
@@ -91,46 +90,37 @@
     <script>
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
             }
         });
-        $('#followUser').click(function (e) {
+
+        $("[data-action]").click(function (event) {
             $.ajax({
-                type: 'POST',
-                url: '/follow-author',
+                type: "POST",
+                url: "{{ route('toggle.follow') }}",
                 data: {
                     _token: "{{ csrf_token() }}",
                     author_id: "{{ $post->author->id }}",
                     user_id: "{{ auth()->id() }}"
                 },
                 success: function (data) {
-                    console.log(data);
+                    let newAction = data.action;
+                    let element = event.currentTarget;
+                    element.dataset.action = newAction;
+                    element.querySelector("[data-action-title]").innerHTML = newAction;
                 },
-                error: function (error) {
-                    for (error in data.responseJSON) {
-                        errors += data.responseJSON[datos] + '\n';
+                error: function (data) {
+                    let errors = data.responseJSON.errors;
+                    for (let fieldName in errors) {
+                        // Errors base on the field name.
+                        let errorsForField = errors[fieldName];
+                        for (let num in errorsForField) {
+                            console.error(fieldName.toUpperCase() + ': ' + errorsForField[num]);
+                        }
                     }
                 }
-            })
-        })
-        $('#unfollowUser').click(function (e) {
-            $.ajax({
-                type: 'POST',
-                url: '/unfollow-author',
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    author_id: "{{ $post->author->id }}",
-                    user_id: "{{ auth()->id() }}"
-                },
-                success: function (data) {
-                    console.log(data);
-                },
-                error: function (error) {
-                    for(error in data.responseJSON){
-                        errors += data.responseJSON[datos] + '\n';
-                    }
-                }
-            })
-        })
+            });
+        });
+
     </script>
 </x-script>

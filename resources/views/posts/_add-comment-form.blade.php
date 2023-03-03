@@ -11,21 +11,12 @@
                 <h2 class="ml-2">Want to participate?</h2>
             </header>
 
-            <div>
-            <textarea
-                name="body"
-                id="body"
-                class="w-full text-sm focus:outline-none focus:ring border border-gray-200 p-2 mt-4"
-                rows="10"
-                placeholder="Add you comment here"
-            >{{ old('body') }}
-            </textarea>
-                @error('body')
-                <p class="text-red-500 text-xs mt-1">
-                    {{ $message }}
-                </p>
-                @enderror
-            </div>
+            <x-form.textarea name="body"
+                             rows="10"
+                             class="w-full text-sm focus:outline-none focus:ring"
+                             placeholder="Add you comment here"
+                             :label="false"
+            ></x-form.textarea>
             <div>
                 <x-form.button>
                     Post

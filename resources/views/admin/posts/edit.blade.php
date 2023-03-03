@@ -27,7 +27,7 @@
             </x-form.field>
             <x-form.field>
                 <x-form.label name="category"></x-form.label>
-                <select name="category_id" id="category_id" class="p-1 rounded">
+                <select name="category_id" id="category_id" class="border border-gray-500 p-3 rounded-sm">
                     @php
                         $categories = \App\Models\Category::all();
                     @endphp
@@ -44,7 +44,7 @@
             </x-form.field>
             <x-form.field>
                 <x-form.label name="author"></x-form.label>
-                <select name="user_id" id="user_id" class="p-1 rounded">
+                <select name="user_id" id="user_id" class="border border-gray-500 p-3 rounded-sm">
                     @php
                         $authors = \App\Models\User::all();
                     @endphp

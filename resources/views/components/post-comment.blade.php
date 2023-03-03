@@ -10,7 +10,7 @@
         </div>
         <div>
             <header class="mb-4">
-                <strong>
+                <span>
                     <h3 class="font-bold">
                         {{ $comment->author->username }}
                     </h3>
@@ -18,7 +18,7 @@
                         Posted
                         <time> {{ $comment->created_at->format('F j, Y, g:i a') }}</time>
                     </p>
-                </strong>
+                </span>
             </header>
             <p>
                 {{ $comment->body }}

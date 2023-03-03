@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Services\PostControllerService;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -12,6 +13,11 @@ class PostController extends Controller
     {
     }
 
+    /**
+     * Previews all posts.
+     *
+     * @return mixed
+     */
     public function index()
     {
         return view('posts.index', [
@@ -20,20 +26,24 @@ class PostController extends Controller
         ]);
     }
 
+    /**
+     * Show single post.
+     *
+     * @param $slug
+     *
+     * @return mixed
+     */
     public function show($slug)
-//    public function show(Post $post)
     {
+        $currentUser = Auth::user();
         $post = cache()->remember('post.' . $slug, 60, function () use ($slug) {
             return Post::where('slug', $slug)->first();
         });
-        $following = false;
-//        $followings = auth()->user()->followings()->pluck('id')->toArray();
-//        $following = in_array($post->author->id, $followings);
+        $following = $currentUser->followings->contains($post->author->id);
+        $followingAction = $following ? 'unfollow' : 'follow';
         $this->controllerService->increaseViews($post);
 
-//        return view('posts.show', compact('post', 'following'));
-        return view('posts.show', compact('post', 'following'));
+        return view('posts.show', compact('post', 'followingAction'));
     }
-
 
 }

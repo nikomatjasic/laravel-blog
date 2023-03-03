@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('follower_users', function (Blueprint $table) {
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('follower_id');
+            $table->timestamps();
         });
     }
 

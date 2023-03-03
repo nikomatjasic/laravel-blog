@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public function followings()
     {
-        return $this->belongsToMany(User::class, 'follower_users', 'user_id', 'follower_id');
+        return $this->belongsToMany(User::class, 'follower_users', 'user_id', 'follower_id')->withTimestamps();
     }
 
 //    public function getRouteKeyName()

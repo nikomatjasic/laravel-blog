@@ -13,7 +13,7 @@
             ></x-form.input>
             <x-form.field>
                 <x-form.label name="category"></x-form.label>
-                <select name="category_id" id="category_id">
+                <select name="category_id" id="category_id" class="border border-gray-500 p-3 rounded-sm">
                     @php
                         $categories = \App\Models\Category::all();
                     @endphp

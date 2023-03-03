@@ -19,10 +19,6 @@
                                     class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                     Status
                                 </th>
-                                <th scope="col"
-                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                    Options
-                                </th>
                                 <th scope="col" class="p-4">
                                     <span class="sr-only">Edit</span>
                                 </th>
@@ -37,12 +33,11 @@
                                     <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <a href="/?author={{ $post->author->username }}"> {{ $post->author->username }} </a>
                                     </td>
-                                    <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+                                    <td class="py-4 px-6 text-sm font-medium whitespace-nowrap">
                                         @if($post->is_published)
                                             <span class="bg-green-400 p-2 rounded-2xl text-white">Active</span>
                                         @else
                                             <span class="bg-yellow-400 p-2 rounded-2xl text-white">Draft</span>
-
                                         @endif
                                     </td>
                                     <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
