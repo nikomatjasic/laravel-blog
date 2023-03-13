@@ -18,7 +18,6 @@
     @endphp
     <script>
         window.Laravel = window.Laravel || {};
-        window.Laravel.userFollowers = {{ Js::from($userFollowers ?? []) }};
         window.Laravel.userFollowing = {{ Js::from($userFollowing ?? []) }};
     </script>
 
@@ -120,9 +119,7 @@
 </section>
 
 @auth
-    <div id="notifications_container">
-        <x-notification-box />
-    </div>
+    <div id="notifications_container"></div>
 @endauth
 <x-flash></x-flash>
 <x-script></x-script>

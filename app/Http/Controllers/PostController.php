@@ -35,15 +35,21 @@ class PostController extends Controller
      */
     public function show($slug)
     {
-        $currentUser = Auth::user();
         $post = cache()->remember('post.' . $slug, 60, function () use ($slug) {
             return Post::where('slug', $slug)->first();
         });
-        $following = $currentUser->followings->contains($post->author->id);
-        $followingAction = $following ? 'unfollow' : 'follow';
         $this->controllerService->increaseViews($post);
 
-        return view('posts.show', compact('post', 'followingAction'));
+        if (Auth::check()) {
+            $currentUser = Auth::user();
+            $following = $currentUser->followings->contains($post->author->id);
+            $followingAction = $following ? 'unfollow' : 'follow';
+
+            return view('posts.show', compact('post', 'followingAction'));
+        }
+
+
+        return view('posts.show', compact('post'));
     }
 
 }

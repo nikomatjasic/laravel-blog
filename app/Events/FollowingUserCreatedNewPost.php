@@ -4,7 +4,6 @@ namespace App\Events;
 
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -47,8 +46,7 @@ class FollowingUserCreatedNewPost implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-      // @todo: change to presence channel or private channel.
-        return new Channel('notify-followers-' . $this->user->id);
+        return new PrivateChannel("notify.user.{$this->user->id}.followers");
     }
 
     /**
@@ -56,6 +54,26 @@ class FollowingUserCreatedNewPost implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-      return 'post.created';
+        return 'post.created';
     }
+
+    /**
+     * Build the data to broadcast.
+     *
+     * @return array<string, mixed>
+     */
+    public function broadcastWith(): array
+    {
+        return [
+          'user' => [
+            'name' => $this->user->name,
+          ],
+          'post' => [
+            'title' => $this->post->title,
+            'excerpt' => $this->post->excerpt,
+          ],
+        ];
+    }
+
+
 }

@@ -14,18 +14,6 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-//    protected $fillable = [
-//        'name',
-//        'username',
-//        'email',
-//        'password',
-//    ];p
-
-    /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
@@ -33,6 +21,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'pivot',
+        'hash',
+        'hash_expire',
+        'updated_at',
+        'created_at',
+        'email_verified_at'
     ];
 
     /**
@@ -53,28 +47,46 @@ class User extends Authenticatable
         User::class => [RegisterObserver::class]
     ];
 
+    /**
+     * Password attribute.
+     *
+     * @param $password
+     *
+     * @return void
+     */
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
     }
 
+    /**
+     * Users written posts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function posts()
     {
         return $this->hasMany(Post::class);
     }
 
+    /**
+     * Users followers.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function followers()
     {
         return $this->belongsToMany(User::class, 'follower_users', 'follower_id', 'user_id');
     }
 
+    /**
+     * Users followings.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function followings()
     {
         return $this->belongsToMany(User::class, 'follower_users', 'user_id', 'follower_id')->withTimestamps();
     }
 
-//    public function getRouteKeyName()
-//    {
-//        return 'slug';
-//    }
 }

@@ -15,13 +15,15 @@
                             </h5>
                         </div>
 
-                        @if ($post->author->id !== Auth::user()->id)
-                        <div class="mt-3">
-                            <button class="text-blue-400 font-bold" data-action="{{ $followingAction }}">
-                                <span class="capitalize" data-action-title>{{ $followingAction }}</span>
-                            </button>
-                        </div>
-                        @endif
+                        @auth
+                            @if ($post->author->id !== Auth::user()->id)
+                                <div class="mt-3">
+                                    <button class="text-blue-400 font-bold" data-action="{{ $followingAction }}" data-id="{{ $post->author->id }}">
+                                        <span class="capitalize" data-action-title>{{ $followingAction }}</span>
+                                    </button>
+                                </div>
+                            @endif
+                        @endauth
 
                     </div>
                     <div class="flex flex-col items-center mt-2 space-y-2">
@@ -94,33 +96,44 @@
             }
         });
 
-        $("[data-action]").click(function (event) {
-            $.ajax({
-                type: "POST",
-                url: "{{ route('toggle.follow') }}",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    author_id: "{{ $post->author->id }}",
-                    user_id: "{{ auth()->id() }}"
-                },
-                success: function (data) {
-                    let newAction = data.action;
-                    let element = event.currentTarget;
-                    element.dataset.action = newAction;
-                    element.querySelector("[data-action-title]").innerHTML = newAction;
-                },
-                error: function (data) {
-                    let errors = data.responseJSON.errors;
-                    for (let fieldName in errors) {
-                        // Errors base on the field name.
-                        let errorsForField = errors[fieldName];
-                        for (let num in errorsForField) {
-                            console.error(fieldName.toUpperCase() + ': ' + errorsForField[num]);
+        let $toggleFollow = $("[data-action]");
+
+        if ($toggleFollow.length > 0) {
+            $("[data-action]").click(function (event) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('toggle.follow') }}",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        author_id: "{{ $post->author->id }}",
+                        user_id: "{{ auth()->id() }}"
+                    },
+                    success: function (data) {
+                        let newAction = data.action;
+                        let element = event.currentTarget;
+                        element.dataset.action = newAction;
+                        element.querySelector("[data-action-title]").innerHTML = newAction;
+                        // @todo: add/ remove the user from the array for Laravel.userFollowing.
+                        let userID = element.querySelector("[data-id]");
+                        console.log(userID);
+                        window.Laravel.userFollowing.forEach(element => {
+
+                        });
+
+                    },
+                    error: function (data) {
+                        let errors = data.responseJSON.errors;
+                        for (let fieldName in errors) {
+                            // Errors base on the field name.
+                            let errorsForField = errors[fieldName];
+                            for (let num in errorsForField) {
+                                console.error(fieldName.toUpperCase() + ': ' + errorsForField[num]);
+                            }
                         }
                     }
-                }
+                });
             });
-        });
+        }
 
     </script>
 </x-script>

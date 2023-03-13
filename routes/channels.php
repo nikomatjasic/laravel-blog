@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+Broadcast::channel('notify.user.{id}.followers', function ($user, $id) {
+  // For authentication of broadcasting channel we check if current user is listening
+  // to the channel of user that is following.
+    return $user->followings->contains($id);
+});

@@ -15,6 +15,7 @@ use MailchimpMarketing\ApiClient;
 
 class AppServiceProvider extends ServiceProvider
 {
+
     /**
      * Register any application services.
      *
@@ -25,8 +26,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(Newsletter::class, function () {
             $client = new ApiClient();
             $client->setConfig([
-                'apiKey' => config('services.mailchimp.key'),
-                'server' => 'us18'
+              'apiKey' => config('services.mailchimp.key'),
+              'server' => 'us18',
             ]);
 
             return new MailchimpNewsletter($client);
@@ -62,15 +63,15 @@ class AppServiceProvider extends ServiceProvider
         });
 
         /**
-         * Share data with all the views for the current user followers.
+         * Share data with all the views for the current user followings.
          */
-          View::composer('*', function($view) {
-            if (Auth::check()) {
-              $user = Auth::user();
-              $view->with('userFollowers', $user->followers);
-              $view->with('userFollowing', $user->followings);
-            }
-          });
+        if (Auth::check()) {
+            View::composer('*', function ($view) {
+                $user = Auth::user();
+                $view->with('userFollowing', $user->followings);
+            });
+        }
 
     }
+
 }

@@ -30,32 +30,59 @@ window.Echo = new Echo({
     forceTLS: true
 });
 
-var notificationBox = document.querySelector('.n-box[data-box="0"]');
+window.closeNotification = function (e) {
+    e.target.parentNode.classList.add("disabled");
+}
+
+window.stringToHTMLElement = function (html) {
+    let template = document.createElement('template');
+    html = html.trim();
+    template.innerHTML = html;
+    return template.content.firstChild;
+}
+
+const notificationBox = window.stringToHTMLElement(`
+<div class="n-box flex flex-col disabled" data-box="0">
+    <div class="close"></div>
+    <div class="n-box--header">
+        <span><!-- message --></span>
+    </div>
+    <div class="n-box--content flex">
+        <div class="n-box--image">
+            <img src="/images/lary-avatar.svg" alt="Lary little robot" title="Lary the man"/>
+        </div>
+        <div class="n-box--text">
+            <h4><!-- post title --></h4>
+            <p><!-- post content --></p>
+            <a href="<!-- link -->" class="link">Read more</a>
+        </div>
+    </div>
+</div>`);
+
 const notificationsContainer = document.querySelector('#notifications_container');
 
 window.Laravel.userFollowing.forEach(element => {
-    let channel = window.Echo.channel('notify-followers-' + element.id);
-    channel.listen('.post.created', function(data) {
+    let channel = window.Echo.private("notify.user." + element.id + ".followers");
+    // todo: test the order of fading notifications.
+    channel.listen(".post.created", function(data) {
+        console.log(data);
         let newNotification = notificationBox.cloneNode(true);
-        let index = parseInt(notificationBox.getAttribute('data-box'));
-        newNotification.setAttribute('data-box', (index + 1));
-        notificationBox = newNotification;
-        if (newNotification.classList.contains('disabled')) {
-            newNotification.classList.remove('disabled');
+        let index = parseInt(notificationBox.getAttribute("data-box"));
+        newNotification.setAttribute("data-box", (index + 1));
+
+        if (newNotification.classList.contains("disabled")) {
+            newNotification.classList.remove("disabled");
         }
-        newNotification.querySelector('.n-box--header > span').innerHTML = data.user.name + ' has created new post!';
+        newNotification.querySelector('.n-box--header > span').innerHTML = data.user.name + " has created new post!";
         newNotification.querySelector('.n-box--content > .n-box--text > h4').innerHTML = data.post.title;
         newNotification.querySelector('.n-box--content > .n-box--text > p').innerHTML = data.post.excerpt;
         newNotification.querySelector('.close').setAttribute("onclick", "window.closeNotification(event)");
         setTimeout(() => {
             notificationsContainer.append(newNotification);
-        }, 1000*index);
+        }, 1000 * index);
         setTimeout(() => {
-            newNotification.classList.add('disabled');
-        }, 5000*index);
+            newNotification.classList.add("disabled");
+        }, 5000 * index);
     });
 });
 
-window.closeNotification = function (e) {
-    e.target.parentNode.classList.add('disabled');
-}
