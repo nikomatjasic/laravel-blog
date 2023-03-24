@@ -5,18 +5,12 @@
                 Log In!
             </h1>
 
-            <form method="POST" action="/sessions" class="mt-10">
+            <form method="POST" action="/sessions" class="mt-4 space-y-6">
                 @csrf
-                <div class="mb-6">
-                    <x-form.input name="email" type="email" autocomplete="username"></x-form.input>
-                </div>
-                <div class="mb-6">
-                    <x-form.input name="password" type="password" autocomplete="new-password"></x-form.input>
-                </div>
+                 <x-form.input name="email" type="email" autocomplete="username"/>
+                 <x-form.input name="password" type="password" autocomplete="new-password"/>
 
-                <div class="mb-6">
-                    <x-form.button>Log In</x-form.button>
-                </div>
+                 <x-form.button>Log In</x-form.button>
                 <ul>
                     @foreach($errors->all() as $error)
                         <li class="text-red-400 text-xs"> {{ $error  }} </li>

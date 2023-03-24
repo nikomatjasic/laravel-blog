@@ -1,6 +1,6 @@
 @props(['heading'])
 <section class="py-8 max-w-4xl mx-auto">
-    <div class="flex border-b mb-6 mb-8 pb-2 justify-between">
+    <div class="flex border-b pb-2 justify-between">
         <h1 class="text-lg font-bold">
             {{ $heading }}
         </h1>
@@ -9,18 +9,18 @@
                 class="text-bold font-semibold text-xl"> {{ \App\Models\Post::where('is_published',  1)->count() }}</span>
         </p>
     </div>
-    <div class="flex">
-        <aside class="w-48 flex-shrink-0">
+    <div class="flex space-x-4">
+        <aside class="w-48 pt-6 flex-shrink-0">
             <h4 class="font-semibold mb-4">Links</h4>
             <ul>
-                <li>
-                    <a href="/admin/posts" class="{{ request()->is('admin/posts') ? 'text-blue-500' : '' }}">
+                <li class="py-2 pl-1">
+                    <a href="/admin/posts" class="{{ request()->is('admin/posts') ? 'border-blue-500 ' : '' }}border-b-4 border-transparent hover:border-gray-200 pb-1">
                         All posts
                     </a>
                 </li>
-                <li>
+                <li class="py-2 pl-1">
                     <a href="/admin/posts/create"
-                       class="{{ request()->is('admin/posts/create') ? 'text-blue-500' : '' }}">
+                       class="{{ request()->is('admin/posts/create') ? 'border-blue-500 ' : '' }}border-b-4 border-transparent hover:border-gray-200 pb-1">
                         New Post
                     </a>
                 </li>

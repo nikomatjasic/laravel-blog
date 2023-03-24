@@ -49,11 +49,7 @@
                         Activate user
                     </button>
                 </div>
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li class="text-red-400 text-xs"> {{ $error  }} </li>
-                    @endforeach
-                </ul>
+                <x-list-errors :errors="$errors->all()" />
             </form>
         </main>
     </section>

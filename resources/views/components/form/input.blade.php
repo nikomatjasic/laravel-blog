@@ -2,9 +2,11 @@
 <x-form.field>
     <x-form.label name="{{ $name }}"></x-form.label>
     <div class="flex">
-        <x-form.description>
-            {{ $description }}
-        </x-form.description>
+        @if($description)
+            <x-form.description>
+                {{ $description }}
+            </x-form.description>
+        @endif
         <input {{ $attributes->merge(['class' => 'border border-gray-500 rounded-sm p-3 w-full']) }}
                type="{{ $type }}"
                name="{{ $name }}"

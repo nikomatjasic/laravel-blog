@@ -1,10 +1,10 @@
 <x-layout>
     <x-setting heading="Edit post: {{ $post->title }}">
-        <form method="POST" action="/admin/posts/{{ $post->id }}" enctype="multipart/form-data">
+        <form method="POST" action="/admin/posts/{{ $post->id }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @method('PATCH')
             <x-form.input name="title" :value="old('title', $post->title)"></x-form.input>
-            <div class="flex mt-6">
+            <div class="flex">
                 <div class="flex-1">
                     <x-form.input name="thumbnail" type="file"
                                   :value="old('thumbnail', $post->thumbnail)"></x-form.input>
@@ -59,12 +59,10 @@
                 </select>
                 <x-form.error name="user"></x-form.error>
             </x-form.field>
-            <div class="flex">
+            <div class="flex items-center space-x-4">
                 <x-form.button>Update</x-form.button>
-                <a class="ml-4 pt-10" href="/admin/posts">Back to posts</a>
-
+                <a href="/admin/posts">Back to posts</a>
             </div>
-
         </form>
     </x-setting>
 </x-layout>
