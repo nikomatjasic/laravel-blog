@@ -83,9 +83,7 @@
             </article>
         </main>
     </section>
-    @foreach($errors->all() as $error)
-        <li class="text-red-400 text-xs"> {{ $error  }} </li>
-    @endforeach
+    <x-form.list-errors :errors="$errors->all()" />
 </x-layout>
 <x-script>
     <script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }}"></script>
@@ -116,6 +114,7 @@
                         // @todo: add/ remove the user from the array for Laravel.userFollowing.
                         let userID = element.querySelector("[data-id]");
                         console.log(userID);
+                        console.log(newAction);
                         window.Laravel.userFollowing.forEach(element => {
 
                         });

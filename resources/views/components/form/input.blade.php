@@ -7,7 +7,7 @@
                 {{ $description }}
             </x-form.description>
         @endif
-        <input {{ $attributes->merge(['class' => 'border border-gray-500 rounded-sm p-3 w-full']) }}
+        <input {{ $attributes->merge(['class' => 'rounded-lg border border-gray-300 py-3 px-4 w-full']) }}
                type="{{ $type }}"
                name="{{ $name }}"
                id="{{ $name }}"

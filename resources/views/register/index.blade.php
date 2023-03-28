@@ -49,7 +49,7 @@
                         Activate user
                     </button>
                 </div>
-                <x-list-errors :errors="$errors->all()" />
+                <x-form.list-errors :errors="$errors->all()" />
             </form>
         </main>
     </section>

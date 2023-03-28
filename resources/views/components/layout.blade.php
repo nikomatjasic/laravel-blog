@@ -1,18 +1,17 @@
 <!doctype html>
 <head>
     <title>Laravel From Scratch Blog</title>
+    <meta name="viewport" content="width=500, initial-scale=1" />
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;700&display=swap" rel="stylesheet">
     <script defer src="https://unpkg.com/alpinejs@3.10.5/dist/cdn.min.js"></script>
-
     <style>
         html {
             scroll-behavior: smooth;
         }
     </style>
-
     @php
       use Illuminate\Support\Js;
     @endphp
@@ -89,22 +88,22 @@
         <p class="text-sm mt-3">Promise to keep the inbox clean. No bugs.</p>
 
         <div class="mt-10">
-            <div class="relative inline-block mx-auto lg:bg-gray-200 rounded-full">
+            <div class="relative inline-block mx-auto md:bg-gray-200 rounded-full">
 
-                <form method="POST" action="/newsletter" class="lg:flex text-sm">
+                <form method="POST" action="/newsletter" class="md:flex text-sm">
                     @csrf
-                    <div class="lg:py-3 lg:px-5 flex items-center">
-                        <label for="email" class="hidden lg:inline-block">
+                    <div class="py-3 px-5 flex items-center rounded-full bg-gray-200">
+                        <label for="email" class="inline-block">
                             <img src="/images/mailbox-icon.svg" alt="mailbox letter">
                         </label>
 
                         <input id="email" name="email" type="text" placeholder="Your email address"
-                               class="lg:bg-transparent py-2 lg:py-0 pl-4 focus-within:outline-none"
-                               value=" {{ old('email') }}">
+                               class="bg-transparent  pl-4 focus-within:outline-none"
+                               value="{{ old('email') }}">
                     </div>
 
                     <button type="submit"
-                            class="transition-colors duration-300 bg-blue-500 hover:bg-blue-600 mt-4 lg:mt-0 lg:ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-8"
+                            class="transition-colors duration-300 bg-blue-500 hover:bg-blue-600 mt-4 md:mt-0 md:ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-8"
                     >
                         Subscribe
                     </button>

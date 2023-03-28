@@ -69,3 +69,10 @@ $dark_gray: #a9a9a9;
     display: none;
   }
 }
+
+form[action="/register"], form[action="/sessions"] {
+    div:last-of-type {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
