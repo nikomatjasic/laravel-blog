@@ -1,68 +1,24 @@
 <x-layout>
-    <x-setting heading="Edit post: {{ $post->title }}">
+    <x-panel.settings heading="Edit post: {{ $post->title }}">
         <form method="POST" action="/admin/posts/{{ $post->id }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @method('PATCH')
-            <x-form.input name="title" :value="old('title', $post->title)"></x-form.input>
-            <div class="flex">
-                <div class="flex-1">
-                    <x-form.input name="thumbnail" type="file"
-                                  :value="old('thumbnail', $post->thumbnail)"></x-form.input>
-                </div>
-                <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="" class="rounded-xl ml-6" width="100">
-            </div>
-            <x-form.textarea name="body">
-                {{ old('body', $post->body) }}
-            </x-form.textarea>
-            <x-form.textarea name="excerpt">
-                {{ old('excerpt', $post->excerpt) }}
-            </x-form.textarea>
-            <x-form.field>
-                <x-form.label name="Published"></x-form.label>
-                <x-form.description>
-                    Check to publish
-                </x-form.description>
-                <input type="checkbox" name="is_published" {{ $post->is_published ? 'checked' : null }} />
-                <x-form.error name="is_published"></x-form.error>
-            </x-form.field>
-            <x-form.field>
-                <x-form.label name="category"></x-form.label>
-                <select name="category_id" id="category_id" class="border border-gray-500 p-3 rounded-sm">
-                    @php
-                        $categories = \App\Models\Category::all();
-                    @endphp
-                    @foreach($categories as $category)
-                        <option
-                            value="{{ $category->id }}"
-                            {{ old('category_id', $post->category_id) === $category->id ? 'selected' : '' }}
-                        >
-                            {{ $category->name }}
-                        </option>
-                    @endforeach
-                </select>
-                <x-form.error name="category"></x-form.error>
-            </x-form.field>
-            <x-form.field>
-                <x-form.label name="author"></x-form.label>
-                <select name="user_id" id="user_id" class="border border-gray-500 p-3 rounded-sm">
-                    @php
-                        $authors = \App\Models\User::all();
-                    @endphp
-                    @foreach($authors as $author)
-                        <option
-                            value="{{ $author->id }}"
-                            {{ old('user_id', $post->author->id) === $author->id ? 'selected' : '' }}
-                        >
-                            {{ $author->username }}
-                        </option>
-                    @endforeach
-                </select>
-                <x-form.error name="user"></x-form.error>
-            </x-form.field>
-            <div class="flex items-center space-x-4">
-                <x-form.button>Update</x-form.button>
-                <a href="/admin/posts">Back to posts</a>
-            </div>
+            <x-form.field.input name="title" :value="old('title', $post->title)"/>
+
+            <x-rounded-img src="{{ asset('storage/' . $post->thumbnail) }}" class="flex space-x-2" width="150">
+                <x-form.field.input name="thumbnail" type="file" :value="old('thumbnail', $post->thumbnail)" class="flex-1" />
+            </x-rounded-img>
+
+            <x-form.field.textarea name="body">{{ old('body', $post->body) }}</x-form.field.textarea>
+            <x-form.field.textarea name="excerpt">{{ old('excerpt', $post->excerpt) }}</x-form.field.textarea>
+            <x-form.field.select name="category_id" :items="$categories" :selected="$post->category->id" label="Category" />
+            <x-form.field.select name="user_id" :items="$authors" :selected="$post->author->id" label="User" />
+            <x-form.field.input name="published" type="checkbox" checked="{{ $post->is_published ? 'checked' : false }}" />
+
+            <x-form.field.group class="flex items-center space-x-4">
+                <x-basic.pri-btn>Update</x-basic.pri-btn>
+                <a href="/admin/posts" class="hover:underline">Back to posts</a>
+            </x-form.field.group>
         </form>
-    </x-setting>
+    </x-panel.settings>
 </x-layout>

@@ -32,7 +32,7 @@
                             <time>{{ $post->created_at->diffForHumans() }}</time>
                         </p>
                         <p class="flex bg-blue-400 text-white text-xs rounded-3xl w-1.5 w-1/4 py-1 px-2 ml-4">
-                            Views: {{ ($post->views_count === 0) ? '1' : $post->views_count }}
+                            Views: {{ (empty($post->views_count)) ? '1' : $post->views_count }}
                         </p>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
             </article>
         </main>
     </section>
-    <x-form.list-errors :errors="$errors->all()" />
+    <x-form.error.list :errors="$errors->all()" />
 </x-layout>
 <x-script>
     <script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }}"></script>

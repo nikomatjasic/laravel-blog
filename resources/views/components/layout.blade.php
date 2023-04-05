@@ -25,11 +25,9 @@
 <body style="font-family: 'Poppins', sans-serif">
 <section class="px-6 py-8">
     <nav class="md:flex md:justify-between md:items-center">
-        <div>
-            <a href="/">
-               <div class="text-2xl">Agile<strong>Blog</strong></div>
-            </a>
-        </div>
+        <a href="/" class="text-2xl">
+            Agile<strong>Blog</strong>
+        </a>
 
         <div class="mt-8 md:mt-0 flex items-center">
             @guest

@@ -1,5 +1,5 @@
 <x-layout>
-    <x-setting heading="Manage posts">
+    <x-panel.settings heading="Manage posts">
         <div class="flex flex-col pt-6">
             <div class="overflow-x-auto shadow-md sm:rounded-lg">
                 <div class="inline-block min-w-full align-middle">
@@ -64,5 +64,5 @@
             </div>
 
         </div>
-    </x-setting>
+    </x-panel.settings>
 </x-layout>

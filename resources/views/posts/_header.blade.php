@@ -2,9 +2,7 @@
     <h1 class="text-4xl">
         Latest <span class="text-blue-500">Laravel From Scratch</span> News
     </h1>
-    test
     @if(session()->has('success'))
-        test
         <div x-data="{ show: true}"
              x-init="setTimeout(() => show = false, 4000)"
              x-show="show"

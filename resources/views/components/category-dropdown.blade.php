@@ -1,11 +1,10 @@
 <x-dropdown>
     <x-slot name="trigger">
-        <button
-            class="py-2 pl-3 pr-9 w-32 inline-flex">
+        <button class="py-2 pl-3 pr-9 inline-flex">
             {{ isset($currentCategory) ? $currentCategory->name : 'Categories' }}
-            <x-icon name="down-arrow"
+            <x-basic.icon name="down-arrow"
                     class="absolute pointer-events-none">
-            </x-icon>
+            </x-basic.icon>
         </button>
     </x-slot>
     <x-dropdown-item href="/?{{ http_build_query(request()->except('category', 'page')) }}"

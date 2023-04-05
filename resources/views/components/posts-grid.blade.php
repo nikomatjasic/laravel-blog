@@ -1,5 +1,5 @@
 @props(['posts'])
-<div class="lg:grid lg:grid-cols-6">
+<div class="md:grid lg:grid-cols-6 md:grid-cols-4">
     @foreach($posts->skip(1) as $post)
         <x-post-card
             :post="$post"

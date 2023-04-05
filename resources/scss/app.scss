@@ -70,9 +70,25 @@ $dark_gray: #a9a9a9;
   }
 }
 
-form[action="/register"], form[action="/sessions"] {
+// Set button on the right side in specified forms.
+form[action="/register"], form[action="/sessions"], form[action*="/activate-user/"] {
     div:last-of-type {
         display: flex;
         justify-content: flex-end;
+    }
+}
+
+.field--is_published, .field--published {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+
+    label {
+        line-height: 28px;
+    }
+    input[type="checkbox"] {
+        margin-right: 10px;
+        width: 28px;
+        height: 28px;
     }
 }

@@ -1,33 +1,14 @@
 <x-layout>
     <section class="px-6 py-8">
         <main class="max-w-lg mx-auto mt-10 bg-gray-100 border border-gray-200 p-6 rounded-xl">
-            <x-form.header>Register</x-form.header>
+            <h1 class="font-bold text-2xl">Register</h1>
             <form method="POST" action="/register" class="mt-7 space-y-3">
                 @csrf
-                <x-form.input name="name"/>
-                <x-form.input name="username"/>
-                <x-form.input name="email" type="email"/>
-{{--                <div class="mb-6">--}}
-{{--                    <label class="block mb-2 uppercase font-bold text-cs text-gray-700"--}}
-{{--                           for="password"--}}
-{{--                    >--}}
-{{--                        Password--}}
-{{--                    </label>--}}
-{{--                    <input class="border border-gray-400 p-2 w-full"--}}
-{{--                           type="password"--}}
-{{--                           name="password"--}}
-{{--                           id="password"--}}
-{{--                           required--}}
-{{--                    >--}}
-{{--                    @error('password')--}}
-{{--                    <p class="text-red-500 text-xs mt-1">--}}
-{{--                        {{ $message }}--}}
-{{--                    </p>--}}
-{{--                    @enderror--}}
-{{--                </div>--}}
-
-                <x-form.button class="mt-4">Submit</x-form.button>
-                <x-form.list-errors :errors="$errors->all()" />
+                <x-form.field.input name="name"/>
+                <x-form.field.input name="username"/>
+                <x-form.field.input name="email" type="email"/>
+                <x-form.button class="mt-4"/>
+                <x-form.error.list :errors="$errors->all()" />
             </form>
         </main>
     </section>
