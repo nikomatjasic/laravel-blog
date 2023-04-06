@@ -3,7 +3,7 @@
         <form method="POST" action="/admin/posts/{{ $post->id }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @method('PATCH')
-            <x-form.field.input name="title" :value="old('title', $post->title)"/>
+            <x-form.field.input name="title" :value="old('title', $post->title)" />
 
             <x-rounded-img src="{{ asset('storage/' . $post->thumbnail) }}" class="flex space-x-2" width="150">
                 <x-form.field.input name="thumbnail" type="file" :value="old('thumbnail', $post->thumbnail)" class="flex-1" />
@@ -13,7 +13,7 @@
             <x-form.field.textarea name="excerpt">{{ old('excerpt', $post->excerpt) }}</x-form.field.textarea>
             <x-form.field.select name="category_id" :items="$categories" :selected="$post->category->id" label="Category" />
             <x-form.field.select name="user_id" :items="$authors" :selected="$post->author->id" label="User" />
-            <x-form.field.input name="published" type="checkbox" checked="{{ $post->is_published ? 'checked' : false }}" />
+            <x-form.field.input name="is_published" type="checkbox" checked="{{ $post->is_published ? 'checked': '' }}" />
 
             <x-form.field.group class="flex items-center space-x-4">
                 <x-basic.pri-btn>Update</x-basic.pri-btn>

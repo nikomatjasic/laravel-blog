@@ -49,7 +49,7 @@ class AdminPostController extends Controller
         $attributes = array_merge($this->validatePost(), [
             'user_id' => request()->user()->id,
             'slug' => Str::slug(request('title')),
-            'is_published' => request('published') == 'on',
+            'is_published' => request('is_published') == 'on',
             'thumbnail' => request()->file('thumbnail')->store('thumbnails')
         ]);
 
@@ -88,7 +88,7 @@ class AdminPostController extends Controller
             $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
         }
 
-        $attributes['is_published'] = request('published') == 'on';
+        $attributes['is_published'] = request('is_published') == 'on';
         $post->update($attributes);
 
         return back()->with('success', 'Updates confirmed.');

@@ -1,4 +1,4 @@
-@props(['name', 'type' => 'text', 'label' => ''])
+@props(['name', 'type' => 'text', 'value' => '', 'label' => '', 'checked' => ''])
 <x-form.field.group {{ $attributes->merge(['class' => 'field--' . $name]) }}>
     @if($label !== false)
         <x-form.label />
@@ -7,7 +7,8 @@
            type="{{ $type }}"
            name="{{ $name }}"
            id="{{ $name }}"
-           {{ $attributes(['value' => old($name)]) }}
+           {{ $attributes(['value' => old($name) ?? $value]) }}
+           {{ $checked }}
     >
     <x-form.error.message />
 </x-form.field.group>

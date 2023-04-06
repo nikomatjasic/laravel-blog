@@ -8,7 +8,7 @@
             <x-form.field.textarea name="excerpt" />
             <x-form.field.select name="category_id" :items="$categories" label="Category"/>
 
-            <x-form.field.input name="published" type="checkbox"/>
+            <x-form.field.input name="is_published" type="checkbox"/>
             <x-form.button type="submit">Publish</x-form.button>
         </form>
     </x-panel.settings>

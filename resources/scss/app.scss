@@ -92,3 +92,9 @@ form[action="/register"], form[action="/sessions"], form[action*="/activate-user
         height: 28px;
     }
 }
+
+form[action="/admin/posts/create"], form[action*="/admin/posts/"] {
+    div[class*='field--']:first-of-type {
+        margin-top: 0 !important;
+    }
+}

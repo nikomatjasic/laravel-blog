@@ -1,9 +1,9 @@
 <x-layout>
     <x-panel.settings heading="Manage posts">
-        <div class="flex flex-col pt-6">
-            <div class="overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="flex flex-col">
+            <div class="overflow-x-auto sm:rounded-lg">
                 <div class="inline-block min-w-full align-middle">
-                    <div class="overflow-hidden">
+                    <div class="overflow-hidden border border-gray-200 rounded-lg">
                         <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
                             <thead class="bg-gray-100 dark:bg-gray-700">
                             <tr>
@@ -28,10 +28,10 @@
                             @foreach($posts as $post)
                                 <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
                                     <td class="py-4 px-6 text-sm font-medium text-gray-900 dark:text-white">
-                                        <a href="/posts/{{ $post->slug }}"> {{ $post->title }} </a>
+                                        <a href="/posts/{{ $post->slug }}" class="hover:underline"> {{ $post->title }} </a>
                                     </td>
                                     <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        <a href="/?author={{ $post->author->username }}"> {{ $post->author->username }} </a>
+                                        <a href="/?author={{ $post->author->username }}" class="hover:underline"> {{ $post->author->username }} </a>
                                     </td>
                                     <td class="py-4 px-6 text-sm font-medium whitespace-nowrap">
                                         @if($post->is_published)
